@@ -22,6 +22,16 @@ public:
 
     void addNodeFirst(T info);
 
+    void addNodeLast(T info);
+
+    void addNodeAfterTo(Node<T>* current, T info);
+
+    void addNodeBeforeTo(Node<T>* current, T info);
+
+    void addNodeSorted(T info);
+
+    Node<T>* findNode(T info);
+
     Node<T> * getHead() const {
         return head;
     }

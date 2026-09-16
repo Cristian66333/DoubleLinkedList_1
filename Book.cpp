@@ -31,6 +31,19 @@ double Book::getPrice() {
     return this->price;
 }
 
+bool Book::operator==(Book book) {
+    if (book.getIsbn().compare(this->isbn) == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Book::operator>(Book book) {
+    return getPrice()>book.getPrice()?true:false;
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Book& book) {
     os << book.isbn <<" - "<< book.author;
     return os;

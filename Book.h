@@ -23,6 +23,10 @@ public:
     string getTitle();
     double getPrice();
 
+    bool operator==(Book book);
+
+    bool operator>(Book book);
+
     friend std::ostream& operator<<(std::ostream& os, const Book& book);
 
 

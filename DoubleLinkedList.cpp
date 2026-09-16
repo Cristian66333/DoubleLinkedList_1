@@ -33,6 +33,73 @@ void DoubleLinkedList<T>::addNodeFirst(T info) {
     size ++;
 }
 
+template<typename T>
+void DoubleLinkedList<T>::addNodeLast(T info) {
+    if (isEmpty()) addNodeFirst(info);
+
+    Node<T> *newNode = new Node<T>(info);
+
+    newNode->previous = tail;
+    tail->next = newNode;
+    tail = newNode;
+
+    size++;
+}
+
+template<typename T>
+void DoubleLinkedList<T>::addNodeAfterTo(Node<T> *current, T info) {
+    if (current == tail) {
+        addNodeLast(info);
+        return;
+    };
+
+    Node<T>* newNode = new Node<T>(info);
+
+    newNode->next = current->next;
+    newNode->previous = current;
+    current->next = newNode;
+    newNode->next->previous = newNode;
+    size++;
+}
+
+template<typename T>
+void DoubleLinkedList<T>::addNodeBeforeTo(Node<T> *current, T info) {
+    if (current == head) addNodeFirst(info);
+    addNodeAfterTo(current->previous, info);
+    size++;
+}
+
+template<typename T>
+void DoubleLinkedList<T>::addNodeSorted(T info) {
+    if (isEmpty()) {
+        addNodeFirst(info);
+
+    }else {
+        if (info > head->info) {
+            addNodeBeforeTo(head, info);
+            return;
+        }else {
+            Node<T>* aux = tail;
+            while (aux!=head && aux->info > info) {
+                aux = aux->previous;
+            }
+            addNodeBeforeTo(aux, info);
+        }
+    }
+}
+
+template<typename T>
+Node<T> * DoubleLinkedList<T>::findNode(T info) {
+    Node<T>* aux = tail;
+    while (aux!=nullptr) {
+        if(aux->info == info) {
+            return aux;
+        }
+        aux = aux->previous;
+    }
+    return nullptr;
+}
+
 template <typename T>
 std::ostream& operator<<(std::ostream& os, DoubleLinkedList<T>* list) {
     Node<T>* aux = list->getHead();
